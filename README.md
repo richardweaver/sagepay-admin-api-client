@@ -44,7 +44,7 @@ Creates a new instance.
 #### Parameters
 
 * `options` Required, values to pass with the request.
-* `options.endpoint` Optional, defaults to the test system.
+* `options.endpoint` Optional, defaults to the <b>test system</b>.
 * `options.user` Required, passed as the `user` to the API.
 * `options.password` Required, used to sign the requests.
 * `options.vendor` Required, passed as the `vendor` to the API.
