@@ -10,6 +10,10 @@ The API uses a tiny subset of XML syntax.
 
 ## Quick Start
 
+```bash
+npm install --save sagepay-admin-api-client
+```
+
 ```javascript
 const SagepayAdminApiClient = require("sagepay-admin-api-client");
 var client = new SagepayAdminApiClient({
