@@ -15,7 +15,7 @@ class SagepayAdminApiClient {
         assert(options.vendor, "options.vendor must be provided");
 
         this.options = extend({
-            endpoint: "https://test.sagepay.com/access/access.htm"
+            endpoint: "https://live.sagepay.com/access/access.htm"
         }, options);
     }
 
