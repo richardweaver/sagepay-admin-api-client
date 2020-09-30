@@ -34,8 +34,8 @@ class SagepayAdminApiClient {
                 "XML": xml
             }
         }).then((xmldata) => {
-            var element = xmlJs.xml2js(xmldata);
-            var packed = pack(element);
+            let element = xmlJs.xml2js(xmldata);
+            let packed = pack(element);
             return packed.vspaccess[0];
         });
     }
@@ -43,7 +43,7 @@ class SagepayAdminApiClient {
 module.exports = SagepayAdminApiClient;
 
 function sign(option) {
-    var options = {};
+    let options = {};
     options = extend({}, option, options);
     delete options.user;
     delete options.vendor;
@@ -55,13 +55,13 @@ function sign(option) {
     options = extend({}, options, {password: option.password});
     
     function render_xml(js_object) {
-        var converted_xml = new Js2Xml("vspaccess", js_object);
-        var xml_str = converted_xml.toString();
+        let converted_xml = new Js2Xml("vspaccess", js_object);
+        let xml_str = converted_xml.toString();
         xml_str = remove_xmldef(remove_linebreak(xml_str));
         return xml_str;
     }
 
-    var to_be_hashed = remove_root(render_xml(options));
+    let to_be_hashed = remove_root(render_xml(options));
     const md5 = crypto.createHash("md5").update(to_be_hashed).digest();
     delete options.password;
     options.signature = md5.toString("hex");
@@ -89,7 +89,7 @@ function remove_linebreak(str) {
 module.exports._sign = sign;
 
 function pack(element) {
-    var ret = {};
+    let ret = {};
     element.elements.forEach(element => {
         if (!element.elements || element.elements.length === 0) {
             ret[element.name] = null;

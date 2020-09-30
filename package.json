@@ -1,6 +1,6 @@
 {
   "name": "sagepay-admin-api-client",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Enables management of sagepay admin and report panel through API",
   "main": "index.js",
   "dependencies": {

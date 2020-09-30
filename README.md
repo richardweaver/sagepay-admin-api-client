@@ -16,7 +16,7 @@ npm install --save sagepay-admin-api-client
 
 ```javascript
 const SagepayAdminApiClient = require("sagepay-admin-api-client");
-var client = new SagepayAdminApiClient({
+const client = new SagepayAdminApiClient({
     user: "username",
     password: "password",
     vendor: "vendorname"
@@ -40,7 +40,7 @@ The class that provides access to the SagePay Administration and Reporting API.
 ### SagepayAdminApiClient.constructor
 
 ```javascript
-var foo = new SagepayAdminApiClient(options);
+const foo = new SagepayAdminApiClient(options);
 ```
 
 Creates a new instance.
@@ -57,11 +57,11 @@ Creates a new instance.
 ### SagepayAdminApiClient.request
 
 ```
-var foo = client.request(options);
+let foo = client.request(options);
 ```
 
 Makes a request and returns a promise that resolves to the response.
 
 ## Licence
 
-MIT
+**MIT**
