@@ -3,9 +3,9 @@
 const assert = require("assert");
 const crypto = require("crypto");
 const extend = require("extend");
-const request = require("request-promise-native");
-const xmlJs = require("xml-js");
-const Js2Xml = require("js2xml").Js2Xml;
+const axios = require('axios').default;
+const qs = require('qs');
+const { create } = require('xmlbuilder2');
 
 class SagepayAdminApiClient {
     constructor(options) {
@@ -19,7 +19,7 @@ class SagepayAdminApiClient {
         }, options);
     }
 
-    request(options) {
+    async request(options) {
         options = extend({}, {
             vendor: this.options.vendor,
             user: this.options.user,
@@ -27,17 +27,15 @@ class SagepayAdminApiClient {
         }, options);
 
         const xml = sign(options);
-        return request({
-            method: "POST",
-            url: this.options.endpoint,
-            form: {
-                "XML": xml
-            }
-        }).then((xmldata) => {
-            let element = xmlJs.xml2js(xmldata);
-            let packed = pack(element);
-            return packed.vspaccess[0];
+        const data = qs.stringify({ XML: xml });
+        const request = await axios.post(this.options.endpoint, data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         });
+        const xml_object = create(request.data);
+        const result = xml_object.toObject().vspaccess;
+        return result;
     }
 }
 module.exports = SagepayAdminApiClient;
@@ -55,8 +53,8 @@ function sign(option) {
     options = extend({}, options, {password: option.password});
     
     function render_xml(js_object) {
-        let converted_xml = new Js2Xml("vspaccess", js_object);
-        let xml_str = converted_xml.toString();
+        const converted_xml = create({ vspaccess: js_object });
+        let xml_str = converted_xml.toString({prettyPrint: false});
         xml_str = remove_xmldef(remove_linebreak(xml_str));
         return xml_str;
     }
@@ -87,20 +85,3 @@ function remove_linebreak(str) {
 }
 
 module.exports._sign = sign;
-
-function pack(element) {
-    let ret = {};
-    element.elements.forEach(element => {
-        if (!element.elements || element.elements.length === 0) {
-            ret[element.name] = null;
-        } else if (element.elements && element.elements.length === 1 && element.elements[0].type === "text") {
-            ret[element.name] = element.elements[0].text;
-        } else {
-            ret[element.name] = ret[element.name] || [];
-            ret[element.name].push(pack(element));
-        }
-    });
-    return ret;
-}
-
-module.exports._pack = pack;

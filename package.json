@@ -4,12 +4,11 @@
   "description": "Enables management of sagepay admin and report panel through API",
   "main": "index.js",
   "dependencies": {
+    "axios": "0.21.1",
     "extend": "^3.0.1",
-    "js2xml": "^1.0.9",
     "nconf": "^0.10.0",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.5",
-    "xml-js": "^1.6.2"
+    "qs": "6.9.6",
+    "xmlbuilder2": "2.4.0"
   },
   "scripts": {
     "test": "echo \"No test specified\" && exit 1",
