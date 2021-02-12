@@ -6,7 +6,6 @@
   "dependencies": {
     "axios": "0.21.1",
     "extend": "^3.0.1",
-    "nconf": "^0.10.0",
     "qs": "6.9.6",
     "xmlbuilder2": "2.4.0"
   },
